@@ -19,10 +19,32 @@ do
 done
 SingletDict[H]=$Hcount
 SingletDict[T]=$Tcount
+echo "Winning Combinations are:"
 echo ${!SingletDict[@]}
 echo ${SingletDict[@]}
 echo "H combination percentage is:" `awk "BEGIN {print $Hcount/(($Hcount+$Tcount))*100}"`
 echo "T combination percentage is:" `awk "BEGIN {print $Tcount/(($Hcount+$Tcount))*100}"`
+
+counter=0
+for value in `echo ${SingletDict[@]}`
+do
+        arraySinglet[(( counter++ ))]=$value
+done
+
+for (( sortcounter=0; sortcounter<LENGTH; sortcounter++ ))
+do
+	for (( newcounter=$sortcounter+1; newcounter<LENGTH; newcounter++ ))
+        do
+        	if (( ${arraySinglet[sortcounter]}<$arraySinglet[newcounter]} ))
+                then
+                	element=${arraySinglet[sortcounter]}
+                        arraySinglet[sortcounter]=${arraySinglet[newcounter]}
+                        arraySinglet[newcounter]=$element
+                fi
+        done
+done
+
+echo "Soterd singlet combination are:"${arraySinglet[@]}
 
 counter=10
 declare -A DoubletDict
@@ -52,12 +74,34 @@ DoubletDict[HH]=$HHcount
 DoubletDict[HT]=$HTcount
 DoubletDict[TH]=$THcount
 DoubletDict[TT]=$TTcount
+echo "Winng combination are:"
 echo ${!DoubletDict[@]}
 echo ${DoubletDict[@]}
 echo "HH combination percentage is:" `awk "BEGIN {print $HHcount/(($HHcount+$HTcount+$THcount+$TTcount))*100}"`
 echo "HT combination percentage is:" `awk "BEGIN {print $HTcount/(($HHcount+$HTcount+$THcount+$TTcount))*100}"`
 echo "TH combination percentage is:" `awk "BEGIN {print $THcount/(($HHcount+$HTcount+$THcount+$TTcount))*100}"`
 echo "TT combination percentage is:" `awk "BEGIN {print $TTcount/(($HHcount+$HTcount+$THcount+$TTcount))*100}"`
+
+counter=0
+for value in `echo ${DoubletDict[@]}`
+do
+        arrayDoublet[(( counter++ ))]=$value
+done
+
+for (( sortcounter=0; sortcounter<LENGTH; sortcounter++ ))
+do
+        for (( newcounter=$sortcounter+1; newcounter<LENGTH; newcounter++ ))
+        do
+                if (( ${arrayDoublet[sortcounter]}<$arrayDoublet[newcounter]} ))
+                then
+                        element=${arrayDoublet[sortcounter]}
+                        arrayDoublet[sortcounter]=${arrayDoublet[newcounter]}
+                        arrayDoublet[newcounter]=$element
+                fi
+        done
+done
+
+echo "Soterd doublet combination are:"${arrayDoublet[@]}
 
 counter=10
 declare -A TripletDict
@@ -110,6 +154,7 @@ TripletDict[THH]=$THHcount
 TripletDict[THT]=$THTcount
 TripletDict[TTH]=$TTHcount
 TripletDict[TTT]=$TTTcount
+echo "Winning combinations are:"
 echo ${!TripletDict[@]}
 echo ${TripletDict[@]}
 echo "HHH combination percentage is:" `awk "BEGIN {print $HHHcount/(($HHHcount+$HHTcount+$HTHcount+$HTTcount+$THHcount+$THTcount+$TTHcount+$TTTcount))*100}"`
@@ -120,3 +165,24 @@ echo "THH combination percentage is:" `awk "BEGIN {print $THHcount/(($HHHcount+$
 echo "THT combination percentage is:" `awk "BEGIN {print $THTcount/(($HHHcount+$HHTcount+$HTHcount+$HTTcount+$THHcount+$THTcount+$TTHcount+$TTTcount))*100}"`
 echo "TTH combination percentage is:" `awk "BEGIN {print $TTHcount/(($HHHcount+$HHTcount+$HTHcount+$HTTcount+$THHcount+$THTcount+$TTHcount+$TTTcount))*100}"`
 echo "TTT combination percentage is:" `awk "BEGIN {print $TTTcount/(($HHHcount+$HHTcount+$HTHcount+$HTTcount+$THHcount+$THTcount+$TTHcount+$TTTcount))*100}"`
+
+counter=0
+for value in `echo ${TripletDict[@]}`
+do
+        arrayTriplet[(( counter++ ))]=$value
+done
+
+for (( sortcounter=0; sortcounter<LENGTH; sortcounter++ ))
+do
+        for (( newcounter=$sortcounter+1; newcounter<LENGTH; newcounter++ ))
+        do
+                if (( ${arrayTriplet[sortcounter]}<$arrayTriplet[newcounter]} ))
+                then
+                        element=${arrayTriplet[sortcounter]}
+                        arrayTriplet[sortcounter]=${arrayTriplet[newcounter]}
+                        arrayTriplet[newcounter]=$element
+                fi
+        done
+done
+
+echo "Soterd triplet combination are:"${arrayTriplet[@]}
